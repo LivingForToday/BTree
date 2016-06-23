@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "BTree.h"
 
-/* 파일 인풋 함수 선언 */
 int InputElementsFromFile(BTreeNode ** pRoot);
 
 int main()
@@ -12,7 +11,7 @@ int main()
 	int choice, num;
 	while (1)
 	{
-		fputs("1.삽입\n2.삭제\n3.검색\n4.출력\n9.일괄 삽입\n0.종료\n선택: ", stdout);
+		fputs("1.insert\n2.delete\n3.search\n4.print all keys\n9.read file\n0.exit\nchoose one: ", stdout);
 		scanf("%d", &choice);
 		puts("\n");
 
@@ -25,14 +24,14 @@ int main()
 
 			while (1)
 			{
-				fputs("삽입할 데이터 입력(종료 -1): ", stdout);
+				fputs("input a key value to be inserted(menu -1): ", stdout);
 				scanf("%d", &num);
 
 				if (num == -1)
 					break;
 
 				if (BTree_Insert(&btRoot, num) == FALSE)
-					puts("입력 실패.");
+					puts("insert failed");
 			}
 			break;
 
@@ -40,14 +39,14 @@ int main()
 
 			while (1)
 			{
-				fputs("삭제할 데이터 입력(종료 -1): ", stdout);
+				fputs("input a key value to be deleted(menu -1): ", stdout);
 				scanf("%d", &num);
 
 				if (num == -1)
 					break;
 
 				if (BTree_Delete(&btRoot, num) == FALSE)
-					puts("입력한 데이터가 트리에 존재하지 않음.");
+					puts("the key value you inputted does not exist in tree. ");
 			}
 			break;
 
@@ -55,15 +54,15 @@ int main()
 
 			while (1)
 			{
-				fputs("검색할 데이터 입력(종료 -1): ", stdout);
+				fputs("input a key value you want to search(menu -1): ", stdout);
 				scanf("%d", &num);
 
 				if (num == -1)
 					break;
 
-				fputs("\n<<검색경로>>\n\n", stdout);
+				fputs("\n<< path >>\n\n", stdout);
 				if (BTree_Search(&btRoot, num) == FALSE)
-					puts("입력한 데이터가 트리에 존재하지 않음.");
+					puts("the key value you inputted does not exist in tree.");
 				puts("");
 			}
 			break;
@@ -74,7 +73,7 @@ int main()
 			break;
 
 		case 9:
-			printf("<< 일괄삽입된 %d개 데이터 출력 >>\n\n", InputElementsFromFile(&btRoot));
+			printf("<< %d key values have been inserted successfully. >>\n\n", InputElementsFromFile(&btRoot));
 			ShowAll(btRoot, 0);
 			break;
 
@@ -87,7 +86,7 @@ int main()
 int InputElementsFromFile(BTreeNode ** pRoot)
 {
 
-	FILE * fd = fopen("C:\\rand100.txt", "r");
+	FILE * fd = fopen("C:\\", "r"); // you should change path of the file.
 	int data, count = 0;
 
 	if (fd == NULL)
